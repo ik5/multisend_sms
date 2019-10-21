@@ -190,6 +190,11 @@ func (b Bool) Value() (driver.Value, error) {
 	return bool(b), nil
 }
 
+// Value implements the database interface of Value
+func (r Recipients) Value() (driver.Value, error) {
+	return r.String(), nil
+}
+
 // Scan implements the database interface for Scan
 func (mt *MessageType) Scan(src interface{}) error {
 	if src == nil {
@@ -310,6 +315,26 @@ func (b *Bool) Scan(src interface{}) error {
 		*b = Bool(int(reflect.ValueOf(src).Float()) > 0)
 	case bool:
 		*b = Bool(reflect.ValueOf(src).Bool())
+	default:
+		return fmt.Errorf("Invalid type of src: %T", src)
+	}
+
+	return nil
+}
+
+// Scan implements the database interface for Scan
+func (r *Recipients) Scan(src interface{}) error {
+	if src == nil {
+		return errors.New("src cannot be nil")
+	}
+
+	switch src.(type) {
+	case string:
+		val := reflect.ValueOf(src).String()
+		*r = Recipients(strings.Split(val, ","))
+	case []byte:
+		val := string(reflect.ValueOf(src).Bytes())
+		*r = Recipients(strings.Split(val, ","))
 	default:
 		return fmt.Errorf("Invalid type of src: %T", src)
 	}
