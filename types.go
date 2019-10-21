@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 	"time"
+
+	"github.com/ik5/gostrutils"
 )
 
 // MessageType is the type of message to tell the API to use
@@ -23,6 +26,9 @@ type SchedulerDateTime struct {
 
 // Bool is a boolean that understand also numeric values
 type Bool bool
+
+// Recipients holds a list of recipients to send them SMS
+type Recipients []string
 
 // Type Of messages to use
 const (
@@ -71,6 +77,33 @@ func NewSchedulerDateTime(str string) (*SchedulerDateTime, error) {
 	return &SchedulerDateTime{&dateTime, true}, nil
 }
 
+// Add a new number for the recipients
+func (r *Recipients) Add(number string) {
+	*r = append(*r, number)
+}
+
+// RemoveByIndex removes a number from Recipients based on an index
+// if index is too small or too big, an error is raised
+func (r *Recipients) RemoveByIndex(idx int) error {
+	if idx < 0 {
+		return fmt.Errorf("%d is out of bound", idx)
+	}
+
+	if idx >= len(*r) {
+		return fmt.Errorf("%d is out of bound", idx)
+	}
+
+	*r = append((*r)[:idx], (*r)[idx+1:]...)
+	return nil
+}
+
+// IsNumberExists searches for a number if exists on the Recipients list
+// if found returns true and the index
+func (r Recipients) IsNumberExists(number string) (bool, int) {
+	index := gostrutils.GetStringIndexInSlice(r, number)
+	return index > -1, index
+}
+
 func (mt MessageType) String() string {
 	switch mt {
 	case MessageTypeTTS:
@@ -89,6 +122,10 @@ func (dt SchedulerDateTime) String() string {
 		return ""
 	}
 	return dt.dateTime.Format(DefaultDateTimeFormat)
+}
+
+func (r Recipients) String() string {
+	return strings.Join(r, ",")
 }
 
 // Int returns int from Bool

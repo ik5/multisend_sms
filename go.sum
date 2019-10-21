@@ -1,3 +1,5 @@
+github.com/ik5/gostrutils v0.0.4 h1:+qv5LO4NvtVvB9sseJaVCaQPqaA/btyleiH+EDlkVSo=
+github.com/ik5/gostrutils v0.0.4/go.mod h1:LWputvEOaa6fXrmkuraCKdnYw/M9zgiXfqbt+wE1oYY=
 github.com/ik5/smshandler v0.0.9 h1:O4aWV/47o0RTyJamnd2hGWtCMEZKdg9xMa3soSs5Y6o=
 github.com/ik5/smshandler v0.0.9/go.mod h1:Ps87eZMlJ2SKQWcL8sdX0uI6D5WuASnQLOLhDKHOw1k=
 github.com/ik5/smshandler v0.0.10 h1:Gv5CIMu5TGkZPNyPNahO9x8S5fv1MphpjmeuJY+R5zc=
@@ -8,3 +10,9 @@ github.com/ik5/smshandler v0.0.12 h1:O5AprwqmRaksHWQ2meq91AbLrDxJPXqNH9bdHaoIg1k
 github.com/ik5/smshandler v0.0.12/go.mod h1:Ps87eZMlJ2SKQWcL8sdX0uI6D5WuASnQLOLhDKHOw1k=
 github.com/ik5/smshandler v0.0.13 h1:f6Yxjzhiww6g84trKIsZH+jKD7f/1osOD3SqfdxLZ/8=
 github.com/ik5/smshandler v0.0.13/go.mod h1:Ps87eZMlJ2SKQWcL8sdX0uI6D5WuASnQLOLhDKHOw1k=
+github.com/ik5/smshandler v0.0.14 h1:zdpU6yJGDIi6qQ+TQ35CZaNL83+wM+L44wY2eJqHUA8=
+github.com/ik5/smshandler v0.0.14/go.mod h1:Ps87eZMlJ2SKQWcL8sdX0uI6D5WuASnQLOLhDKHOw1k=
+github.com/ik5/smshandler v0.0.15 h1:CZUgZCVfbj5mQRUKrWzw257P+yfP/LrdBqq7KYhCd0s=
+github.com/ik5/smshandler v0.0.15/go.mod h1:Ps87eZMlJ2SKQWcL8sdX0uI6D5WuASnQLOLhDKHOw1k=
+github.com/ik5/smshandler v0.0.16 h1:sSiG/wY0zdh91e7MNQ4sG0kPoAsywBYsRXCd+e6pXNo=
+github.com/ik5/smshandler v0.0.16/go.mod h1:Ps87eZMlJ2SKQWcL8sdX0uI6D5WuASnQLOLhDKHOw1k=

@@ -11,13 +11,13 @@ const (
 	userName    = "1"
 	password    = "2"
 	from        = "me"
-	recipient   = "9721234567"
 	message     = "Hello world"
 	messageType = MessageTypeSMS
 )
 
 var (
 	currentTime      = time.Now()
+	recipient        = Recipients{"9721234567"}
 	scheduleDateTime = NewSchedulerFromTime(currentTime)
 )
 
@@ -36,7 +36,7 @@ func TestValidToURL(t *testing.T) {
 		"user":          []string{userName},
 		"password":      []string{password},
 		"from":          []string{from},
-		"recipient":     []string{recipient},
+		"recipient":     []string{recipient.String()},
 		"message":       []string{message},
 		"message_type":  []string{messageType.String()},
 		"international": []string{"0"},

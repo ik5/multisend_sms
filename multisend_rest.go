@@ -1,8 +1,10 @@
 package multisendsms
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -15,7 +17,7 @@ type RESTSendSMS struct {
 	UserName                   string            `url:"user"`
 	Password                   string            `url:"password"`
 	From                       string            `url:"from"`
-	Recipient                  string            `url:"recipient"`
+	Recipient                  Recipients        `url:"recipient"`
 	Message                    string            `url:"message"`
 	MessageType                MessageType       `url:"message_type,omitempty"`
 	ScheduleDateTime           SchedulerDateTime `url:"scheduledatetime,omitempty"`
@@ -67,6 +69,9 @@ func (r *RESTSendSMS) ToURL() url.Values {
 				continue
 			}
 			result.Add(name, val)
+		case Recipients:
+			val := valueField.Interface().(Recipients)
+			result.Add(name, val.String())
 		case Bool:
 			val := Bool(valueField.Bool())
 			result.Add(name, strconv.Itoa(val.Int()))
@@ -103,6 +108,10 @@ func (r RESTSendSMS) SendSMS(
 		body = []byte(r.ToURL().Encode())
 		values = url.Values{}
 	}
+	if strings.Contains(os.Getenv("SMSHTTPDEBUG"), "dump=true") {
+		fmt.Printf("---- body: %s, values: %+v \n", body, values)
+	}
+
 	return smshandler.DoHTTP(
 		client, method, contentType, DefaultHTTPAddress+DefaultSendSMSPage, values, body, onResponse,
 	)

@@ -10,6 +10,7 @@ import (
 )
 
 var (
+	method    = os.Getenv("MULTISEND_METHOD")
 	userName  = os.Getenv("MULTISEND_USERNAME")
 	password  = os.Getenv("MULTISEND_PASSWORD")
 	from      = os.Getenv("MULTISEND_FROM")
@@ -26,11 +27,11 @@ func main() {
 		UserName:          userName,
 		Password:          password,
 		From:              from,
-		Recipient:         recipient,
-		Message:           "Hello world",
+		Recipient:         multisendsms.Recipients{recipient},
+		Message:           time.Now().String(),
 		CustomerMessageID: messageID,
 	}
 
-	resp, err := rest.SendSMS(http.MethodGet, &client, nil)
+	resp, err := rest.SendSMS(method, &client, nil)
 	fmt.Println(resp, err)
 }
