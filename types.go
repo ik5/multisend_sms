@@ -44,6 +44,20 @@ const (
 	DLRTypeMessageExpired      DLRType = "041"
 )
 
+// NewSchedulerFromTime initialize a new SchedulerDateTime from
+// time.Time
+func NewSchedulerFromTime(t time.Time) *SchedulerDateTime {
+	s := SchedulerDateTime{
+		valid:    true,
+		dateTime: &t,
+	}
+	if t.Equal(time.Time{}) {
+		s.valid = false
+	}
+
+	return &s
+}
+
 // NewSchedulerDateTime initialize a new SchedulerDateTime.
 func NewSchedulerDateTime(str string) (*SchedulerDateTime, error) {
 	if str == "" {
