@@ -2,9 +2,11 @@ package multisendsms
 
 // Default settings
 const (
-	DefaultHTTPAddress    = "https://api.multisend.co.il/MultiSendAPI/"
-	DefaultSendSMSPage    = "sendsms"
-	DefaultDateTimeFormat = "2006-02-01+15:04:05"
+	DefaultHTTPAddress     = "https://api.multisend.co.il/MultiSendAPI/"
+	DefaultSendSMSPage     = "sendsms"
+	DefaultDateTimeFormat  = "2006-02-01+15:04:05"
+	DefaultGETContentType  = "text/plain; charset=UTF-8"
+	DefaultPOSTContentType = "application/x-www-form-urlencoded"
 )
 
 var dlrDescEng = map[DLRType]string{

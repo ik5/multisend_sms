@@ -1,10 +1,13 @@
 package multisendsms
 
 import (
+	"net/http"
 	"net/url"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/ik5/smshandler"
 )
 
 // RESTSendSMS holds the fields to send SMS using GET and POST requests
@@ -87,4 +90,20 @@ func (r *RESTSendSMS) ToURL() url.Values {
 	}
 
 	return result
+}
+
+// SendSMS sends the SMS implementing the RESTHandler interface
+func (r RESTSendSMS) SendSMS(
+	method string, client *http.Client, onResponse smshandler.Response) (*http.Response, error) {
+	var body []byte
+	contentType := DefaultGETContentType
+	values := r.ToURL()
+	if method == http.MethodPost {
+		contentType = DefaultPOSTContentType
+		body = []byte(r.ToURL().Encode())
+		values = url.Values{}
+	}
+	return smshandler.DoHTTP(
+		client, method, contentType, DefaultHTTPAddress, values, body, onResponse,
+	)
 }
