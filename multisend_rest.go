@@ -28,7 +28,7 @@ type RESTSendSMS struct {
 
 // ToURL converts the struct to url.Values
 func (r *RESTSendSMS) ToURL() url.Values {
-	var result url.Values
+	result := url.Values{}
 	val := reflect.ValueOf(r).Elem()
 	fieldsCount := val.NumField()
 
@@ -66,26 +66,26 @@ func (r *RESTSendSMS) ToURL() url.Values {
 			if val == "" {
 				continue
 			}
-			result.Add(typeField.Name, val)
+			result.Add(name, val)
 		case Bool:
 			val := Bool(valueField.Bool())
-			result.Add(typeField.Name, strconv.Itoa(val.Int()))
+			result.Add(name, strconv.Itoa(val.Int()))
 		case bool:
 			val := valueField.Bool()
 			if val {
-				result.Add(typeField.Name, "1")
+				result.Add(name, "1")
 				continue
 			}
-			result.Add(typeField.Name, "0")
+			result.Add(name, "0")
 		case MessageType:
 			val := valueField.Interface().(MessageType)
-			result.Add(typeField.Name, val.String())
+			result.Add(name, val.String())
 		case SchedulerDateTime:
 			val := valueField.Interface().(SchedulerDateTime)
 			if !val.IsValid() {
 				continue
 			}
-			result.Add(typeField.Name, val.String())
+			result.Add(name, val.String())
 		}
 	}
 
@@ -104,6 +104,6 @@ func (r RESTSendSMS) SendSMS(
 		values = url.Values{}
 	}
 	return smshandler.DoHTTP(
-		client, method, contentType, DefaultHTTPAddress, values, body, onResponse,
+		client, method, contentType, DefaultHTTPAddress+DefaultSendSMSPage, values, body, onResponse,
 	)
 }
