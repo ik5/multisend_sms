@@ -1,2 +1,1 @@
-# multisend_sms
-Implementing the SMS API of Israeli SMS provider
+note: the API of the service is unstable, and therefore I will not support it at this time.
